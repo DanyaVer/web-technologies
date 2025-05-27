@@ -19,6 +19,8 @@ if (!CASDOOR_CLIENT_ID || !CASDOOR_CLIENT_SECRET) {
     process.exit(1);
 }
 
+app.use(express.json());
+
 app.use(session({
     secret: 'oij3j20asopd239r3wej0asoa_asd120ewjdsa98/=ok12',
     resave: false,
@@ -72,6 +74,7 @@ app.get('/callback', async (req, res) => {
         });
 
         const { access_token, id_token } = tokenResponse.data;
+        console.log( tokenResponse.data)
 
         if (!access_token) {
             throw new Error('No access token received.');
@@ -86,6 +89,9 @@ app.get('/callback', async (req, res) => {
 
         const userInfo = userInfoResponse.data;
 
+        // Used for updating information later
+        req.session.accessToken = access_token;
+        console.log(userInfo);
         req.session.user = userInfo;
         req.session.isAuthenticated = true;
         console.log('User logged in:', userInfo.name || userInfo.preferred_username);
@@ -106,7 +112,8 @@ app.get('/api/user', (req, res) => {
                 id: req.session.user.sub,
                 name: req.session.user.name || req.session.user.preferred_username,
                 email: req.session.user.email,
-                picture: req.session.user.picture
+                picture: req.session.user.picture,
+                displayName: req.session.user.preferred_username || req.session.user.name
             }
         });
     } else {
@@ -114,7 +121,10 @@ app.get('/api/user', (req, res) => {
     }
 });
 
-app.post('/api/update-profile', isAuthenticated, async (req, res) => {
+app.post('/api/update-profile', async (req, res) => {
+    if (!req.session.isAuthenticated)
+        return res.status(401).json({ message: "User not authenticated. Please log in." });
+
     const { newDisplayName } = req.body;
     const accessToken = req.session.accessToken;
     const userId = req.session.user.sub; // Or req.session.user.name, depending on Casdoor's update-user API
@@ -132,7 +142,7 @@ app.post('/api/update-profile', isAuthenticated, async (req, res) => {
         const updateUserPayload = {
             id: userId, 
             name: userName,
-            displayName: newDisplayName
+            preferred_username: newDisplayName
         };
 
         const casdoorUpdateResponse = await axios.post(`${CASDOOR_ENDPOINT}/api/update-user`, updateUserPayload, {
@@ -151,6 +161,7 @@ app.post('/api/update-profile', isAuthenticated, async (req, res) => {
 
         const updatedUserInfo = userInfoResponse.data;
         req.session.user = updatedUserInfo;
+        req.session.user.preferred_username = newDisplayName;
         console.log(`User ${userName} display name updated to: ${newDisplayName}`);
 
         res.json({
@@ -161,7 +172,7 @@ app.post('/api/update-profile', isAuthenticated, async (req, res) => {
                 name: updatedUserInfo.name || updatedUserInfo.preferred_username,
                 email: updatedUserInfo.email,
                 picture: updatedUserInfo.picture,
-                displayName: updatedUserInfo.displayName || updatedUserInfo.display_name || updatedUserInfo.name
+                displayName: updatedUserInfo.preferred_username || updatedUserInfo.name
             }
         });
 

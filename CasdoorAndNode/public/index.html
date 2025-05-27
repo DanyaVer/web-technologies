@@ -18,8 +18,16 @@
         <div id="logged-in-view" style="display: none;">
             <p>Welcome, <span id="userName"></span>!</p>
             <p>Your Email: <span id="userEmail"></span></p>
+            <p>Display Name: <span id="userDisplayName"></span></p>
             <img id="userPicture" src="" alt="Profile Picture" style="display: none; width: 100px; height: 100px; border-radius: 50%;">
             <button id="logoutBtn">Logout</button>
+            <p id="protectedDataMessage"></p>
+            
+            <hr>
+            <h3>Update Profile</h3>
+            <input type="text" id="newDisplayNameInput" placeholder="New Display Name">
+            <button id="updateProfileBtn">Update Display Name</button>
+            <p id="updateProfileMessage"></p>
         </div>
     </div>
 

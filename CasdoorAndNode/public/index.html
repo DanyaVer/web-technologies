@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casdoor Login Example</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Casdoor Login Example</h1>
+
+        <div id="logged-out-view">
+            <p>You are currently logged out.</p>
+            <button id="loginBtn">Login with Casdoor</button>
+        </div>
+
+        <div id="logged-in-view" style="display: none;">
+            <p>Welcome, <span id="userName"></span>!</p>
+            <p>Your Email: <span id="userEmail"></span></p>
+            <img id="userPicture" src="" alt="Profile Picture" style="display: none; width: 100px; height: 100px; border-radius: 50%;">
+            <button id="logoutBtn">Logout</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

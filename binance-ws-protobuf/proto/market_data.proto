@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package market_data;
+
+message TickerUpdate {
+  string symbol = 1;
+  string lastPrice = 2;
+  int64 eventTime = 3;
+}
+
+message TickerList {
+  repeated TickerUpdate tickers = 1;
+}

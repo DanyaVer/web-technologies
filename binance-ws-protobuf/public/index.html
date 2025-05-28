@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binance Rates (Protobuf WS)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Live Crypto Rates (Protobuf WebSockets)</h1>
+        <p id="ws-status">Connecting to WebSocket...</p>
+
+        <table id="rates-table">
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Last Price</th>
+                    <th>Last Update</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rates will be inserted here by JavaScript -->
+            </tbody>
+        </table>
+        <p>Data from Binance `!miniTicker@arr` stream, filtered and sent via our Node.js WebSocket API.</p>
+
+        <hr>
+
+        <h2>Send Message to Server</h2>
+        <input type="text" id="messageInput" placeholder="Type a message">
+        <button id="sendMessageBtn">Send</button>
+        <p id="serverEcho"></p>
+        <p id="otherClientsEcho"></p>
+    </div>
+
+    <!-- Parcel will process this script tag and bundle all dependencies. -->
+    <script type="module" src="script.js"></script>
+
+</body>
+</html>

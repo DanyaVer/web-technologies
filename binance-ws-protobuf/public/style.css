@@ -1,0 +1,166 @@
+/* General Body and HTML */
+body {
+    font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to the top of the viewport */
+    min-height: 100vh; /* Ensure it takes full viewport height */
+    box-sizing: border-box; /* Include padding in element's total width and height */
+}
+
+/* Main Container */
+.container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Headings */
+h1, h2 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Paragraphs */
+p {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 0.95em;
+    color: #555;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 30px 0;
+}
+
+/* WebSocket Status Indicator */
+#ws-status {
+    font-weight: bold;
+    font-size: 1.1em;
+    padding: 8px 15px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #fff; /* Default color, JavaScript will override */
+    background-color: #95a5a6; /* Default grey for "Connecting" */
+    text-align: center; /* Center the status text itself */
+    width: auto; /* Allow content to dictate width */
+    position: relative; /* For centering */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#ws-status[style*="green"] {
+    background-color: #27ae60; /* Connected */
+}
+
+#ws-status[style*="red"] {
+    background-color: #e74c3c; /* Disconnected/Error */
+}
+
+#ws-status[style*="orange"] {
+    background-color: #f39c12; /* Connecting/Warning */
+}
+
+
+/* Rates Table */
+#rates-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-radius: 8px; /* Rounded corners for the table */
+    overflow: hidden; /* Ensures border-radius is applied to content */
+}
+
+#rates-table thead {
+    background-color: #34495e;
+    color: #ffffff;
+}
+
+#rates-table th,
+#rates-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#rates-table tbody tr:last-child td {
+    border-bottom: none; /* No border for the last row */
+}
+
+#rates-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#rates-table tbody tr:hover {
+    background-color: #f0f0f0;
+}
+
+/* Price Flash Animation */
+/* Define the keyframes for the flash effect */
+@keyframes flash {
+    0% { background-color: transparent; }
+    15% { background-color: #a2d2ff; } /* A light blue, or a bright green/yellow */
+    100% { background-color: transparent; }
+}
+
+.price.flash {
+    animation: flash 1s ease-out; /* Apply the animation */
+    /* Remove background-color here to let the animation define it */
+}
+
+/* Input and Button for Message Sending */
+#messageInput {
+    width: calc(100% - 100px); /* Adjust width to fit button */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 1em;
+    box-sizing: border-box; /* Include padding in width */
+}
+
+#sendMessageBtn {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+#sendMessageBtn:hover {
+    background-color: #2980b9;
+}
+
+/* Echo Messages */
+#serverEcho,
+#otherClientsEcho {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #ecf0f1;
+    border-left: 5px solid #bdc3c7;
+    border-radius: 5px;
+    font-size: 0.9em;
+    color: #555;
+    text-align: left; /* Ensure these are left-aligned */
+}
+
+#serverEcho + #otherClientsEcho { /* Add some space between the two echo messages */
+    margin-top: 10px;
+}

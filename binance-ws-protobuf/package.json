@@ -1,12 +1,12 @@
 {
   "name": "binance-ws-protobuf",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "generate-proto": "npx pbjs -t static-module -w es6 -o public/market_data_pb.js proto/market_data.proto",
-    "dev-client": "parcel public/index.html --port 3000",
-    "build-client": "parcel build public/index.html"
+    "generate-proto": "pbjs -t static-module -w commonjs -o src/generated/market_data_pb.js proto/market_data.proto",
+    "build-client": "parcel build src/index.html --dist-dir dist --public-url /",
+    "start-server": "node server.js",
+    "dev": "npm run generate-proto && concurrently \"npm run start-server\" \"parcel src/index.html\"",
+    "start": "npm run generate-proto && npm run build-client && npm run start-server"
   },
   "keywords": [],
   "author": "",
@@ -14,11 +14,12 @@
   "description": "",
   "dependencies": {
     "express": "^5.1.0",
-    "protobufjs": "^7.4.0",
     "protobufjs-cli": "^1.1.3",
     "ws": "^8.18.2"
   },
   "devDependencies": {
-    "parcel": "^2.12.0" 
+    "concurrently": "^9.1.2",
+    "parcel": "^2.12.0",
+    "protobufjs": "^7.5.3"
   }
 }

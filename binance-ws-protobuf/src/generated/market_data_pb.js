@@ -1,20 +1,22 @@
 /*eslint-disable block-scoped-var, id-length, no-control-regex, no-magic-numbers, no-prototype-builtins, no-redeclare, no-shadow, no-var, sort-vars*/
-import * as $protobuf from "protobufjs/minimal";
+"use strict";
+
+var $protobuf = require("protobufjs/minimal");
 
 // Common aliases
-const $Reader = $protobuf.Reader, $Writer = $protobuf.Writer, $util = $protobuf.util;
+var $Reader = $protobuf.Reader, $Writer = $protobuf.Writer, $util = $protobuf.util;
 
 // Exported root namespace
-const $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {});
+var $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {});
 
-export const market_data = $root.market_data = (() => {
+$root.market_data = (function() {
 
     /**
      * Namespace market_data.
      * @exports market_data
      * @namespace
      */
-    const market_data = {};
+    var market_data = {};
 
     market_data.TickerUpdate = (function() {
 
@@ -37,7 +39,7 @@ export const market_data = $root.market_data = (() => {
          */
         function TickerUpdate(properties) {
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -123,12 +125,14 @@ export const market_data = $root.market_data = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        TickerUpdate.decode = function decode(reader, length) {
+        TickerUpdate.decode = function decode(reader, length, error) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.market_data.TickerUpdate();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.market_data.TickerUpdate();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
+                if (tag === error)
+                    break;
                 switch (tag >>> 3) {
                 case 1: {
                         message.symbol = reader.string();
@@ -200,7 +204,7 @@ export const market_data = $root.market_data = (() => {
         TickerUpdate.fromObject = function fromObject(object) {
             if (object instanceof $root.market_data.TickerUpdate)
                 return object;
-            let message = new $root.market_data.TickerUpdate();
+            var message = new $root.market_data.TickerUpdate();
             if (object.symbol != null)
                 message.symbol = String(object.symbol);
             if (object.lastPrice != null)
@@ -229,12 +233,12 @@ export const market_data = $root.market_data = (() => {
         TickerUpdate.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.defaults) {
                 object.symbol = "";
                 object.lastPrice = "";
                 if ($util.Long) {
-                    let long = new $util.Long(0, 0, false);
+                    var long = new $util.Long(0, 0, false);
                     object.eventTime = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.eventTime = options.longs === String ? "0" : 0;
@@ -300,7 +304,7 @@ export const market_data = $root.market_data = (() => {
         function TickerList(properties) {
             this.tickers = [];
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -338,7 +342,7 @@ export const market_data = $root.market_data = (() => {
             if (!writer)
                 writer = $Writer.create();
             if (message.tickers != null && message.tickers.length)
-                for (let i = 0; i < message.tickers.length; ++i)
+                for (var i = 0; i < message.tickers.length; ++i)
                     $root.market_data.TickerUpdate.encode(message.tickers[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
             return writer;
         };
@@ -367,12 +371,14 @@ export const market_data = $root.market_data = (() => {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        TickerList.decode = function decode(reader, length) {
+        TickerList.decode = function decode(reader, length, error) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.market_data.TickerList();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.market_data.TickerList();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
+                if (tag === error)
+                    break;
                 switch (tag >>> 3) {
                 case 1: {
                         if (!(message.tickers && message.tickers.length))
@@ -418,8 +424,8 @@ export const market_data = $root.market_data = (() => {
             if (message.tickers != null && message.hasOwnProperty("tickers")) {
                 if (!Array.isArray(message.tickers))
                     return "tickers: array expected";
-                for (let i = 0; i < message.tickers.length; ++i) {
-                    let error = $root.market_data.TickerUpdate.verify(message.tickers[i]);
+                for (var i = 0; i < message.tickers.length; ++i) {
+                    var error = $root.market_data.TickerUpdate.verify(message.tickers[i]);
                     if (error)
                         return "tickers." + error;
                 }
@@ -438,12 +444,12 @@ export const market_data = $root.market_data = (() => {
         TickerList.fromObject = function fromObject(object) {
             if (object instanceof $root.market_data.TickerList)
                 return object;
-            let message = new $root.market_data.TickerList();
+            var message = new $root.market_data.TickerList();
             if (object.tickers) {
                 if (!Array.isArray(object.tickers))
                     throw TypeError(".market_data.TickerList.tickers: array expected");
                 message.tickers = [];
-                for (let i = 0; i < object.tickers.length; ++i) {
+                for (var i = 0; i < object.tickers.length; ++i) {
                     if (typeof object.tickers[i] !== "object")
                         throw TypeError(".market_data.TickerList.tickers: object expected");
                     message.tickers[i] = $root.market_data.TickerUpdate.fromObject(object.tickers[i]);
@@ -464,12 +470,12 @@ export const market_data = $root.market_data = (() => {
         TickerList.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.arrays || options.defaults)
                 object.tickers = [];
             if (message.tickers && message.tickers.length) {
                 object.tickers = [];
-                for (let j = 0; j < message.tickers.length; ++j)
+                for (var j = 0; j < message.tickers.length; ++j)
                     object.tickers[j] = $root.market_data.TickerUpdate.toObject(message.tickers[j], options);
             }
             return object;
@@ -507,4 +513,4 @@ export const market_data = $root.market_data = (() => {
     return market_data;
 })();
 
-export { $root as default };
+module.exports = $root;

@@ -1,0 +1,9 @@
+# Node modules
+node_modules/
+
+# Parcel build output
+.parcel-cache/
+dist/
+
+# Generated Protobuf files
+src/generated/

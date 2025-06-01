@@ -1,4 +1,4 @@
-import { market_data } from './market_data_pb.js'; 
+import { market_data } from './generated/market_data_pb.js'; 
 
 // Access TickerList and TickerUpdate from the imported namespace.
 const TickerList = market_data.TickerList;
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const serverEchoElem = document.getElementById('serverEcho');
     const otherClientEchoElem = document.getElementById('otherClientsEcho');
 
-    const WS_URL = 'ws://localhost:3001'; // Backend WebSocket URL (your Node.js server)
+    const WS_URL = 'ws://localhost:3001'; // Backend WebSocket URL
     let ws;
 
     // Stores current prices for quick lookup and update

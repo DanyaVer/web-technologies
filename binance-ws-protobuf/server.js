@@ -12,19 +12,21 @@ const PORT = 3001;
 const BINANCE_WS_URL = 'wss://stream.binance.com:9443/ws/!miniTicker@arr';
 
 // --- Protobuf Setup ---
-let TickerList; // the Protobuf TickerList message type
-let TickerUpdate; // the Protobuf TickerUpdate message type
+const { market_data } = require('./src/generated/market_data_pb.js'); 
+const TickerList = market_data.TickerList;
+const TickerUpdate = market_data.TickerUpdate;
+console.log('Protobuf schema loaded successfully from generated file.');
 
-// Load Protobuf .proto file
-protobuf.load('proto/market_data.proto', (err, root) => {
-    if (err) {
-        console.error('Failed to load protobuf:', err);
-        process.exit(1);
-    }
-    TickerList = root.lookupType('market_data.TickerList');
-    TickerUpdate = root.lookupType('market_data.TickerUpdate');
-    console.log('Protobuf schema loaded successfully.');
-});
+// // Load Protobuf .proto file
+// protobuf.load('proto/market_data.proto', (err, root) => {
+//     if (err) {
+//         console.error('Failed to load protobuf:', err);
+//         process.exit(1);
+//     }
+//     TickerList = root.lookupType('market_data.TickerList');
+//     TickerUpdate = root.lookupType('market_data.TickerUpdate');
+//     console.log('Protobuf schema loaded successfully.');
+// });
 // --- End Protobuf Setup ---
 
 
@@ -152,14 +154,6 @@ function sendTickerUpdatesToClients() {
         }
     });
 }
-
-
-// Serve node_modules so that the browser can access protobufjs/minimal.js
-app.use('/node_modules', express.static('node_modules'));
-
-// --- Express Static File Serving ---
-app.use(express.static('public')); // Serve index.html, script.js, style.css
-
 
 // Start the server
 server.listen(PORT, () => {
